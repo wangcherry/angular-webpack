@@ -1,0 +1,30 @@
+{
+  "name": "angular-webpack",
+  "version": "1.0.0",
+  "description": "For learning angular and webpack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wangcherry/angular-webpack.git"
+  },
+  "keywords": [
+    "angular",
+    "webpack"
+  ],
+  "author": "wangcherry",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wangcherry/angular-webpack/issues"
+  },
+  "homepage": "https://github.com/wangcherry/angular-webpack#readme",
+  "dependencies": {
+    "@angular/core": "^6.0.9",
+    "@angular/platform-browser": "^6.0.9",
+    "@angular/platform-browser-dynamic": "^6.0.9",
+    "@angular/router": "^6.0.9",
+    "@types/node": "^10.5.2"
+  }
+}
