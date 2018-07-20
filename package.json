@@ -4,7 +4,8 @@
   "description": "For learning angular and webpack",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --config ./scripts/utils/webpack.dev.config.js",
+    "dev": "webpack-dev-server --config ./scripts/utils/webpack.dev.config.js"
   },
   "repository": {
     "type": "git",
@@ -21,10 +22,29 @@
   },
   "homepage": "https://github.com/wangcherry/angular-webpack#readme",
   "dependencies": {
+    "@angular/common": "^6.0.9",
+    "@angular/compiler": "^6.0.9",
+    "@angular/compiler-cli": "^6.0.9",
     "@angular/core": "^6.0.9",
     "@angular/platform-browser": "^6.0.9",
     "@angular/platform-browser-dynamic": "^6.0.9",
     "@angular/router": "^6.0.9",
-    "@types/node": "^10.5.2"
+    "@types/node": "^10.5.2",
+    "circular-dependency-plugin": "^5.0.2",
+    "css-loader": "^1.0.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.9.2",
+    "sass-loader": "^7.0.3",
+    "style-loader": "^0.21.0",
+    "typescript": "^2.7.2",
+    "webpack": "^4.16.1"
+  },
+  "devDependencies": {
+    "@ngtools/webpack": "^6.0.8",
+    "clean-webpack-plugin": "^0.1.19",
+    "copy-webpack-plugin": "^4.5.2",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.4"
   }
 }
