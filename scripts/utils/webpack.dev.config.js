@@ -5,71 +5,105 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ngtools = require('@ngtools/webpack');
 const sharkConf = require('../../shark-conf');
-module.exports = () => {
-    return {
-        mode: 'development',
-        resolve: {
-            extensions: ['.js', '.ts']
-        },
-        entry: {
-            bootstrap: path.join(sharkConf.__dirname, 'web/src/bootstrap.ts')
-        },
-        output: { //定义出口
-            path: path.resolve(sharkConf.__dirname, 'dist'),
-            filename: 'js/[name]-[hash].js'
-        },
-        devServer: {
-            //设置服务器访问的基本目录
-            contentBase: path.resolve(sharkConf.__dirname, 'dist'), // 要求服务器访问dist目录
-            host: 'localhost', // 设置服务器ip地址，可以是localhost
-            port: 8090, // 设置端口号
-            open: true, //自动拉起浏览器
-            hot: true //模块热更新
-        },
-        module: {
-            rules: [
-                {
-                    test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
-                    loader: '@ngtools/webpack'
-                },
-                {
-                    test: /\.html$/,
-                    use: {
-                        loader: 'html-loader'
+module.exports = {
+    mode: 'development',
+    resolve: {
+        extensions: ['.js', '.ts']
+    },
+    entry: {
+        bootstrap: path.join(sharkConf.__dirname, 'web/src/bootstrap.ts'),
+        polyfills: [
+            'core-js/es7/reflect.js',
+            'zone.js/dist/zone.js'
+        ]
+    },
+    output: { //定义出口
+        path: path.join(sharkConf.__dirname, 'dist'),
+        filename: 'js/[name]-[hash].js'
+    },
+    devServer: {
+        //设置服务器访问的基本目录
+        contentBase: path.join(sharkConf.__dirname, 'dist'), // 要求服务器访问dist目录
+        host: 'localhost', // 设置服务器ip地址，可以是localhost
+        port: 8090, // 设置端口号
+        open: true, //自动拉起浏览器
+        hot: true //模块热更新
+    },
+    module: {
+        rules: [
+            {
+                //消除system.import的警告
+                test: /[\/\\]@angular[\/\\]core[\/\\].+\.js$/,
+                parser: { system: true }
+            },
+            {
+                test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+                loader: '@ngtools/webpack'
+            },
+            {
+                test: /\.html$/,
+                use: {
+                    loader: 'html-loader'
+                }
+            },
+            {
+                test: /\.(sass|scss)$/, //处理sass
+                include: [path.join(sharkConf.__dirname, 'web/src/styles/scss/index.scss')],
+                use: ['style-loader', 'css-loader', 'sass-loader']
+            },
+            {
+                test: /\.(sass|scss)$/, //处理sass
+                exclude: [path.join(sharkConf.__dirname, 'web/src/styles/scss/index.scss')],
+                use: ['to-string-loader', 'css-loader', 'sass-loader']
+            },
+        ]
+    },
+    plugins: [
+        new webpack.HotModuleReplacementPlugin(), //热更新
+        new webpack.DefinePlugin({
+            'HOT': true,
+            'ENV': JSON.stringify('development')
+        }),
+        new CleanWebpackPlugin(['dist'], {
+            root: sharkConf.__dirname,
+            verbose: true,
+            dry: false
+        }), //表示每次运行之前先删除dist目录
+        new HtmlWebpackPlugin({
+            filename: 'index.html',//定义生成的页面的名称
+            minify: {
+                collapseWhitespace: true //压缩html代码
+            },
+            title: "这里是设置HTML title", //用来生成页面的 title 元素 使用：<%= htmlWebpackPlugin.options.title %>
+            template: path.join(sharkConf.__dirname, 'web/src/index.html'),
+            chunks: ['polyfills', 'bootstrap'], //允许只添加某些块
+            chunksSortMode: (function () { //允许控制块在添加到页面之前的排序方式
+                const orders = ['polyfills', 'bootstrap'];
+                return function (left, right) {
+                    let leftIndex = orders.indexOf(left.names[0]);
+                    let rightindex = orders.indexOf(right.names[0]);
+                    if (leftIndex > rightindex) {
+                        return 1;
                     }
-                },
-                {
-                    test: /\.(sass|scss)$/, //处理sass
-                    use: ['style-loader', 'css-loader', 'sass-loader']
-                },
-            ]
-        },
-        plugins: [
-            new webpack.HotModuleReplacementPlugin(), //热更新
-            new CleanWebpackPlugin(['dist'], {
-                root: sharkConf.__dirname,
-                verbose: true,
-                dry: false
-            }), //表示每次运行之前先删除dist目录
-            new HtmlWebpackPlugin({
-                filename: 'index.html',//定义生成的页面的名称
-                minify: {
-                    collapseWhitespace: true //压缩html代码
-                },
-                title: "这里是设置HTML title", //用来生成页面的 title 元素 使用：<%= htmlWebpackPlugin.options.title %>
-                template: path.join(sharkConf.__dirname, 'web/src/index.html')
-            }),
-            new CopyWebpackPlugin([{ // 静态文件输出 也就是复制粘贴
-                from: path.resolve(sharkConf.__dirname, 'web/src/favicon.ico'), //将哪里的文件
-                to: path.resolve(sharkConf.__dirname, 'dist') // 复制到哪里
-            }]),
-            new ngtools.AngularCompilerPlugin({
-                skipCodeGeneration: true,
-                tsConfigPath: path.join(sharkConf.__dirname, 'tsconfig.json'),
-                entryModule: path.join(sharkConf.__dirname, 'web/src/bootstrap.ts'),
-                sourceMap: true
-            })
-        ],
-        devtool: "inline-source-map"
-    }
+                    else if (leftIndex < rightindex) {
+                        return -1;
+                    }
+                    else {
+                        return 0;
+                    }
+                }
+            })()
+        }),
+        new CopyWebpackPlugin([{ // 静态文件输出 也就是复制粘贴
+            from: path.join(sharkConf.__dirname, 'web/src/favicon.ico'), //将哪里的文件
+            to: path.join(sharkConf.__dirname, 'dist') // 复制到哪里
+        }]),
+        new ngtools.AngularCompilerPlugin({
+            skipCodeGeneration: true,
+            tsConfigPath: path.join(sharkConf.__dirname, 'tsconfig.json'),
+            mainPath: path.join(sharkConf.__dirname, 'web/src/bootstrap.ts'),
+            sourceMap: true
+        })
+    ],
+    devtool: "inline-source-map"
 }
