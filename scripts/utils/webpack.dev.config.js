@@ -11,11 +11,11 @@ module.exports = {
         extensions: ['.js', '.ts']
     },
     entry: {
-        bootstrap: path.join(sharkConf.__dirname, 'web/src/bootstrap.ts'),
+        bootstrap: [path.join(sharkConf.__dirname, 'web/src/bootstrap.ts'), 'webpack-hot-middleware/client?reload=true'],
         polyfills: [
             'core-js/es7/reflect.js',
             'zone.js/dist/zone.js'
-        ]
+        ].concat(['webpack-hot-middleware/client?reload=true'])
     },
     output: { //定义出口
         path: path.join(sharkConf.__dirname, 'dist'),
