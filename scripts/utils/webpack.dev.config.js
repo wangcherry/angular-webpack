@@ -21,14 +21,6 @@ module.exports = {
         path: path.join(sharkConf.__dirname, 'dist'),
         filename: 'js/[name]-[hash].js'
     },
-    devServer: {
-        //设置服务器访问的基本目录
-        contentBase: path.join(sharkConf.__dirname, 'dist'), // 要求服务器访问dist目录
-        host: 'localhost', // 设置服务器ip地址，可以是localhost
-        port: 8090, // 设置端口号
-        open: true, //自动拉起浏览器
-        hot: true //模块热更新
-    },
     module: {
         rules: [
             {
@@ -44,6 +36,15 @@ module.exports = {
                 test: /\.html$/,
                 use: {
                     loader: 'html-loader'
+                }
+            },
+            {
+                test: /\.(jpg|png|webp|gif)$/,
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: 'img/[name].[ext]'
+                    }
                 }
             },
             {
