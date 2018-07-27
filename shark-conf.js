@@ -29,5 +29,4 @@ module.exports = {
         test: `//nos.netease.com/mailpub-test/hxm/${group}/${product}/`, //nos.netease.com/mailpub-test/hxm         mailpub-test桶不支持cdn
         online: `//mailpub.nosdn.127.net/hxm/${group}/${product}/`, //              mailpub桶支持cdn
     }
-
 };
