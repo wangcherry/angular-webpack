@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ngtools = require('@ngtools/webpack');
 const CircularDependencyPlugin = require('circular-dependency-plugin')
 
-module.exports = (config) => {
+module.exports = function(config) {
     const webpackConfig = {
         mode: 'development',
         resolve: {
@@ -24,30 +24,30 @@ module.exports = (config) => {
         performance: {
             hints: false //超过250kb的资源不展示警告或错误提示。
         },
-        // optimization: {
-        //     splitChunks: {
-        //         minSize: 30000,
-        //         minChunks: 1,
-        //         maxAsyncRequests: Infinity,
-        //         maxInitialRequests: Infinity,
-        //         cacheGroups: {
-        //             default: {
-        //                 chunks: 'async',
-        //                 minChunks: 2,
-        //                 priority: 10
-        //             },
-        //             vendors: false,
-        //             vendor: {
-        //                 name: 'vendor',
-        //                 chunks: 'all',
-        //                 test: (module, chunks) => {
-        //                     const moduleName = module.nameForCondition ? module.nameForCondition() : '';
-        //                     return (/[\\/]node_modules[\\/]/.test(moduleName)) && (chunks.length === 1 && chunks[0].name === 'bootstrap');
-        //                 }
-        //             }
-        //         }
-        //     }
-        // },
+        optimization: {
+            splitChunks: {
+                minSize: 30000,
+                minChunks: 1,
+                maxAsyncRequests: Infinity,
+                maxInitialRequests: Infinity,
+                cacheGroups: {
+                    default: {
+                        chunks: 'async',
+                        minChunks: 2,
+                        priority: 10
+                    },
+                    vendors: false,
+                    vendor: {
+                        name: 'vendor',
+                        chunks: 'all',
+                        test: (module, chunks) => {
+                            const moduleName = module.nameForCondition ? module.nameForCondition() : '';
+                            return (/[\\/]node_modules[\\/]/.test(moduleName)) && (chunks.length === 1 && chunks[0].name === 'bootstrap');
+                        }
+                    }
+                }
+            }
+        },
         module: {
             rules: [
                 {
@@ -96,7 +96,7 @@ module.exports = (config) => {
                 cwd: process.cwd()
             }),
             new webpack.DefinePlugin({ //定义一些常量
-                'HOT': true,
+                'HOT': config.hotReload,
                 'ENV': JSON.stringify('development')
             }),
             new HtmlWebpackPlugin({
