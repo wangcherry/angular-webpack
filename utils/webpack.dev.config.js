@@ -1,14 +1,13 @@
-const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ngtools = require('@ngtools/webpack');
-const CircularDependencyPlugin = require('circular-dependency-plugin')
+const CircularDependencyPlugin = require('circular-dependency-plugin');
 
 module.exports = function(config) {
     const webpackConfig = {
         mode: 'development',
         resolve: {
-            extensions: ['.js', '.ts']
+            extensions: ['.ts', '.js']
         },
         entry: {
             polyfills: config.polyfillChunk.concat(['webpack-hot-middleware/client?reload=true']),
