@@ -52,7 +52,7 @@
   "devDependencies": {
     "@angular/forms": "^6.1.4",
     "@ngtools/webpack": "^6.0.8",
-    "@shark/shark-angularX": "^1.5.27",
+    "@shark/shark-angularX": "^6.0.3",
     "chalk": "^2.4.1",
     "get-port": "^4.0.0",
     "koa": "^2.5.2",

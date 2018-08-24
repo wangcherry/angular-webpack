@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-// import { Ajax, SharkModule } from '@shark/shark-angularX';
+import { Ajax, SharkModule } from '@shark/shark-angularX';
 
 // 定义常量 路由
 const appRoutes: Routes = [
@@ -23,6 +23,7 @@ const appRoutes: Routes = [
     imports: [
         BrowserModule,
         FormsModule,
+        SharkModule,
         RouterModule.forRoot(appRoutes, {
             useHash: true,
             onSameUrlNavigation: 'reload'
@@ -33,18 +34,18 @@ const appRoutes: Routes = [
 })
 export class AppModule {
     constructor(
-        // private ajax: Ajax,
+        private ajax: Ajax
     ) {
-        // this.ajax.setContextPath('');
-        // this.ajax.setFilterCode((res, type) => {
-        //     if (type === 'head') {
-        //         return true;
-        //     } else {
-        //         return res.code === 200;
-        //     }
-        // });
-        // this.ajax.setFilterData((res, type) => {
-        //     return res;
-        // });
+        this.ajax.setContextPath('/angular-webpack');
+        this.ajax.setFilterCode((res, type) => {
+            if (type === 'head') {
+                return true;
+            } else {
+                return res.code === 200;
+            }
+        });
+        this.ajax.setFilterData((res, type) => {
+            return res;
+        });
     }
 }
