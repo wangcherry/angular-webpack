@@ -7,7 +7,7 @@ module.exports = function(config) {
     const webpackConfig = {
         mode: 'development',
         resolve: {
-            extensions: ['.ts', '.js']
+            extensions: ['.ts', '.js']// 这里需要注意顺序，顺序反了的话ts不会实时编译
         },
         entry: {
             polyfills: config.polyfillChunk.concat(['webpack-hot-middleware/client?reload=true']),

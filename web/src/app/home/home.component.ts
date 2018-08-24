@@ -9,4 +9,10 @@ export class HomeComponent {
     constructor( ) {
         
     }
+    ngOnInit() {
+        this.getUser();
+    }
+    getUser() {
+        
+    }
 }

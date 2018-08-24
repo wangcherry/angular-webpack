@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config ./utils/webpack.dev.config.js",
-    "dev": "node ./scripts/dev/server.js"
+    "dev": "node ./scripts/dev/server.js --server mock",
+    "dev:remote": "node ./scripts/dev/server.js --server remote"
   },
   "repository": {
     "type": "git",
@@ -49,11 +50,14 @@
     "webpack-hot-middleware": "^2.22.3"
   },
   "devDependencies": {
+    "@angular/forms": "^6.1.4",
     "@ngtools/webpack": "^6.0.8",
+    "@shark/shark-angularX": "^1.5.27",
     "chalk": "^2.4.1",
     "get-port": "^4.0.0",
     "koa": "^2.5.2",
     "koa-body": "^4.0.4",
+    "koa-proxies": "^0.7.0",
     "koa-webpack-middleware": "^1.0.7",
     "opn": "^5.3.0",
     "webpack-cli": "^3.1.0",

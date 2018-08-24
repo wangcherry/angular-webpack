@@ -13,6 +13,7 @@ const shimIE9 = [
     'core-js/es6/index.js',
     'core-js/es7/index.js'
 ];
+
 function mergeBaseConfig(config) {
     const baseConfig1 = {
         root: config.__dirname,
@@ -25,6 +26,7 @@ function mergeBaseConfig(config) {
         tsConfig: path.join(config.__dirname, 'tsconfig.json')
     };
     const baseConfig2 = {
+        appTsConfig: path.join(baseConfig1.srcPath, 'tsconfig.json'),
         buildClient: path.join(baseConfig1.build, 'client'),
         buildWebapp: path.join(baseConfig1.build, 'app'),
         buildStatics: path.join(baseConfig1.build, 'mimg'),

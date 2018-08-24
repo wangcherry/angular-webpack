@@ -15,6 +15,7 @@ const webpackConfig = sw.getDevConfig();
 const koa = require('koa'); //基于node的web开发框架，
 const koaBody = require("koa-body");
 const koaWebpackMiddleware = require('koa-webpack-middleware'); //热更新中间件
+const koaProxies = require('koa-proxies'); // HTTP代理中间件
 const app = new koa();
 
 let devMiddleware;
@@ -39,7 +40,11 @@ if(argv.target === 'build') {
 }
 
 if (argv.server === 'remote') {
-
+    app.use(koaProxies(`${sharkConf.contextPath}${sharkConf.xhrPrefix}`, {
+        target: sharkConf.remote.url,
+        changeOrigin: true,
+        logs: true
+    }));
 } else {
     app.use(koaBody({ textLimit: "100mb", jsonLimit: "100mb", formLimit: "100mb" }));
     app.use(async (ctx, next) => {
