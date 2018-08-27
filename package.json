@@ -4,7 +4,7 @@
   "description": "For learning angular and webpack",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config ./utils/webpack.dev.config.js",
+    "build": "node ./scripts/build/build.js --target dev",
     "dev": "node ./scripts/dev/server.js --server mock",
     "dev:remote": "node ./scripts/dev/server.js --server remote"
   },
@@ -58,6 +58,7 @@
     "koa": "^2.5.2",
     "koa-body": "^4.0.4",
     "koa-proxies": "^0.7.0",
+    "koa-send": "^5.0.0",
     "koa-webpack-middleware": "^1.0.7",
     "opn": "^5.3.0",
     "webpack-cli": "^3.1.0",

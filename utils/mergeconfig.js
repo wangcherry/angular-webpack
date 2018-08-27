@@ -26,7 +26,6 @@ function mergeBaseConfig(config) {
         tsConfig: path.join(config.__dirname, 'tsconfig.json')
     };
     const baseConfig2 = {
-        appTsConfig: path.join(baseConfig1.srcPath, 'tsconfig.json'),
         buildClient: path.join(baseConfig1.build, 'client'),
         buildWebapp: path.join(baseConfig1.build, 'app'),
         buildStatics: path.join(baseConfig1.build, 'mimg'),

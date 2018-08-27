@@ -15,13 +15,29 @@ const webpackConfig = sw.getDevConfig();
 //use koa
 const koa = require('koa'); //基于node的web开发框架，
 const koaBody = require("koa-body");
+const koaSend = require('koa-send'); // 静态文件中间件
 const koaWebpackMiddleware = require('koa-webpack-middleware'); //热更新中间件
 const koaProxies = require('koa-proxies'); // HTTP代理中间件
 const app = new koa();
 
 let devMiddleware;
 if(argv.target === 'build') {
-
+    app.use(async(ctx, next) => {
+        const reqPath = ctx.path;
+        console.log("========="+reqPath+"=========")
+        const omitContextPath = reqPath.replace(`${sharkConf.contextPath}`, '');
+        if (fs.existsSync(sharkConf.buildStatics + omitContextPath)) {
+            await koaSend(ctx, omitContextPath, {
+                root: sharkConf.buildStatics
+            })
+        }else if (fs.existsSync(sharkConf.buildWebapp + omitContextPath)) {
+            await koaSend(ctx, omitContextPath, {
+                root: sharkConf.buildWebapp
+            })
+        }else {
+            await next();
+        }
+    })
 }else {
     let compiler = webpack(webpackConfig);
     devMiddleware = koaWebpackMiddleware.devMiddleware(compiler, {

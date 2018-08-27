@@ -21,6 +21,12 @@ class SharkWebpack {
             target: target ? target : 'dev'
         }));
     }
+
+    getBuildConfig(target) {
+        return require('./utils/webpack.build.config')(Object.assign({}, this.config, {
+            target: target ? target : 'online'
+        }));
+    }
 }
 
 module.exports = SharkWebpack;
