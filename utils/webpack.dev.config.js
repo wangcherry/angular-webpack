@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ngtools = require('@ngtools/webpack');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 
-module.exports = function(config) {
+module.exports = config => {
     const webpackConfig = {
         mode: 'development',
         resolve: {
