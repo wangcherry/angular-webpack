@@ -24,7 +24,6 @@ let devMiddleware;
 if(argv.target === 'build') {
     app.use(async(ctx, next) => {
         const reqPath = ctx.path;
-        console.log("========="+reqPath+"=========")
         const omitContextPath = reqPath.replace(`${sharkConf.contextPath}`, '');
         if (fs.existsSync(sharkConf.buildStatics + omitContextPath)) {
             await koaSend(ctx, omitContextPath, {

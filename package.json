@@ -8,7 +8,7 @@
     "dev:remote": "node ./scripts/dev/server.js --server remote",
     "build": "node ./scripts/build/build.js --target dev",
     "build:test": "node ./scripts/build/build.js --target test",
-    "build:online": "node ./scripts/build/build.js --target online"
+    "build:online": "sh scripts/build/build-online.sh"
   },
   "repository": {
     "type": "git",
