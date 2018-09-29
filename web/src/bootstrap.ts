@@ -11,6 +11,6 @@ if (ENV === 'development' && HOT) {
     }
 }
 if (ENV === 'production') {
-    enableProdMode(); //禁用Angular的开发模式，该模式关闭框架内的断言和其他检查。
+    enableProdMode(); // 禁用Angular的开发模式，该模式关闭框架内的断言和其他检查。
 }
 platformBrowserDynamic().bootstrapModule(AppModule);

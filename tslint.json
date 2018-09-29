@@ -1,0 +1,29 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {},
+    "rules": {
+        "quotemark": [
+            true,
+            "single"
+        ], // 单引号
+        "trailing-comma": [
+            true,
+            {
+                "multiline": "never",
+                "singleline": "never"
+            }
+        ], // 末尾逗号
+        "no-console": false, // 禁用console
+        "member-access": false, // 成员可访问性
+        "object-literal-sort-keys": false, // 对象的字段定义需要按字母顺序
+        "no-empty": false, // 不允许空函数
+        "max-line-length": [
+            false
+        ], // 最大行长度
+        "only-arrow-functions": false // 只允许箭头函数
+    },
+    "rulesDirectory": []
+}

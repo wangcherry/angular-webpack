@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { Ajax, SharkModule } from '@shark/shark-angularX';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { Ajax, SharkModule } from '@shark/shark-angularX';
+import { LodashComponent } from './lodash/lodash.component';
 
 // 定义常量 路由
 const appRoutes: Routes = [
@@ -16,6 +17,10 @@ const appRoutes: Routes = [
     {
         path: 'home',
         component: HomeComponent
+    },
+    {
+        path: 'lodash',
+        component: LodashComponent
     }
 ];
 
