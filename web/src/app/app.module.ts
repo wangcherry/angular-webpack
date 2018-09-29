@@ -34,7 +34,7 @@ const appRoutes: Routes = [
             onSameUrlNavigation: 'reload'
         })
     ],
-    declarations: [AppComponent, HomeComponent],
+    declarations: [AppComponent, HomeComponent, LodashComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule {
